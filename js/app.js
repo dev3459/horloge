@@ -39,7 +39,7 @@ let startStop = document.getElementById('startStop');
 let currentTime;
 let alarmElement;
 let activeAlarm = false;
-let sound = new Audio("../audio/alarme.mp3");
+let sound = new Audio("./audio/alarme.mp3");
 sound.loop = true;
 
 function showTime(){
