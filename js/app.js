@@ -3,6 +3,7 @@ let date, hr, min, sec;
 const monAudio = document.querySelectorAll('audio');
 let tic = false;
 
+//Function qui joue l'audio tic tac
 function ticTac(){
     if(tic){
         monAudio[0].play();
@@ -13,6 +14,8 @@ function ticTac(){
     }
 }
 
+
+//Fonction qui gère les aiguilles de l'horloge avec l'heure du poste client
 function clock(){
     ticTac();
     date = new Date();
@@ -42,6 +45,7 @@ let activeAlarm = false;
 let sound = new Audio("./audio/alarme.mp3");
 sound.loop = true;
 
+//Fonction qui joue le son de l'alarme si l'heure enregistré et la même que celle du poste client
 function showTime(){
     var now = new Date();
     currentTime = now.toLocaleTimeString();
@@ -53,6 +57,7 @@ function showTime(){
 }
 showTime();
 
+//Fonction qui ajoute les minutes et secondes dans l'élément HTML select 
 function addMinSec(id){
     let select = id;
     let min = 60;
@@ -62,6 +67,7 @@ function addMinSec(id){
     }
 }
 
+//Fonction qui ajoute l'heure dans l'élément HTML select
 function addHour(id){
     let select = id;
     let min = 24;
@@ -75,10 +81,11 @@ addHour(hours);
 addMinSec(minutes);
 addMinSec(seconds);
 
+
+//Évènement du boutton lors de l'ajout ou arrêt de l'alarme
 startStop.addEventListener('click', function() {
     if(!activeAlarm){
         disabledElement();
-
         alarmElement = hours.value + ":" + minutes.value + ":" + seconds.value;
         this.innerHTML = "Effacer l'alarme";
         activeAlarm = true;
@@ -90,12 +97,14 @@ startStop.addEventListener('click', function() {
     }
 });
 
+//Fonction qui désactive les élément HTML une fois l'alarme activer
 function disabledElement(){
     hours.disabled = true;
     minutes.disabled = true;
     seconds.disabled = true;
 }
 
+//Fonction qui ré-active les élément HTML une fois l'alarme activer
 function enableElement(){
     hours.disabled = false;
     minutes.disabled = false;

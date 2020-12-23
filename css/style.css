@@ -20,14 +20,27 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 60vh;
+    height: 100vh;
+    flex-direction: column;
 }
 
 #contentAlarme{
-    width: 200px;
-    margin: 0.5rem auto;
+    margin-top: 2rem;
     display: flex;
-    justify-content: center;
+}
+
+select{
+    background-color: black;
+    color: white;
+    padding: 5px;
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+#startStop{
+    height: 100%;
+    padding: 5px;
+    text-transform: uppercase;
 }
 
 #contentNeedle{
@@ -77,4 +90,18 @@ body{
     background-color: rgb(163, 163, 163);
     border-radius: 50%;
     z-index: 1000;
+}
+
+@media screen and (max-width: 415px){
+    #contentNeedle{
+        height: 30rem;
+        width: 30rem;
+    }
+}
+
+@media screen and (max-width: 350px){
+    #contentNeedle{
+        height: 20rem;
+        width: 20rem;
+    }
 }
