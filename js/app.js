@@ -45,9 +45,7 @@ sound.loop = true;
 function showTime(){
     var now = new Date();
     currentTime = now.toLocaleTimeString();
-    console.log(currentTime);
     if(currentTime === alarmElement){
-        console.log("réussi !");
         sound.play();
     }
 
