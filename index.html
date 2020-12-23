@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horloge</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <audio>
+        <source src="audio/tic.mp3">
+    </audio>
+    <audio>
+        <source src="audio/tac.mp3">
+    </audio>
+    <div id="content">
+        <!-- Needle veut dire Aiguille -->
+        <div id="contentNeedle">
+            <div class="needle" id="hour"></div>
+            <div class="needle" id="minute"></div>
+            <div class="needle" id="second"></div>
+            <div id="point"></div>
+        </div>
+    </div>
+
+    <!-- Section alarme -->
+    <div id="contentAlarme">
+        <select id="hours"></select>
+        <select id="minutes"></select>
+        <select id="seconds"></select>
+        <div>
+            <button id="startStop">Créer l'alarme</button>
+        </div>
+        <audio>
+            <source src="audio/alarme.mp3">
+        </audio>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
