@@ -1,28 +1,29 @@
-//Horloge ci-dessous TIC TAC TIC TAC TIC TAC.....
-let date, hr, min, sec;
-const monAudio = document.querySelectorAll('audio');
-let tic = false;
+/**Horloge ci-dessous TIC TAC TIC TAC TIC TAC.....**/
+let date, hr, min, sec, tic, activeCloche, ancienHr;
+let countCoup = 0;
 
-//Function qui joue l'audio tic tac
+
+//Fonction qui joue l'audio tic tac chaque seconde
 function ticTac(){
     if(tic){
-        monAudio[0].play();
+        new Audio("./audio/tic.mp3").play();
         tic = false;
     }else{
-        monAudio[1].play();
+        new Audio("./audio/tac.mp3").play();
         tic = true;
     }
 }
 
-
-//Fonction qui gère les aiguilles de l'horloge avec l'heure du poste client
-function clock(){
-    ticTac();
+//Fonction qui récupère l'heure les minutes et les secondes dans des variables
+function recupHourMinSec(){
     date = new Date();
     hr = date.getHours();
     min = date.getMinutes();
     sec = date.getSeconds();
-    
+}
+
+//Fonction qui actualise la rotations des aiguilles à chaque seconde
+function aiguilles(){
     document.querySelector("#hour").style.transform = `translate(-50%, -100%) rotate(${hr * 360 / 12 + min * 30 / 60}deg)`;
 
     document.querySelector("#minute").style.transform = `translate(-50%, -100%) rotate(${min * 360 / 60}deg)`;
@@ -30,10 +31,54 @@ function clock(){
     document.querySelector("#second").style.transform = `translate(-50%, -100%) rotate(${sec * 360 / 60}deg)`;
 }
 
+//Fonction qui fait retentir un coup de cloche à chaque fois que les minutes sont égales à 30
+function clockDemiHourCloche(){
+    if(min === 30 && !activeCloche){
+        new Audio("./audio/demiHeure.mp3").play();
+        activeCloche = true;
+    }else if(min === 31 && activeCloche){
+        activeCloche = false;
+    }
+}
+
+//Fonction qui fait retentir une cloche avec le nombre d'heure à chaque heure
+function clockHourCloche(){
+    if(!activeCloche){
+        let soundCloche = new Audio("./audio/clocheCentre.mp3")
+            if(countCoup !== hr){
+                soundCloche.play();
+                countCoup++;
+            }else{
+                soundCloche.pause();
+                ancienHr = hr;
+                activeCloche = true;
+            }
+            console.log(countCoup);
+    }else if(hr !== ancienHr){
+        ancienHr = hr;
+        activeCloche = false;
+        countCoup = 0;
+        console.log("test");
+    }
+}
+
+//Fonction générale qui appelle les fonction ticTac, recupHourMinSec, clock DemiHourCloche et aiguilles
+function clock(){
+    ticTac();
+    recupHourMinSec();
+    clockDemiHourCloche();
+    clockHourCloche();
+    aiguilles();
+}
+
+//Appel des fonctions principale et initialisation des timer setInterval
 clock();
 window.setInterval(clock, 1000);
 
-//Alarme ci-dessous !
+
+/**Alarme ci-dessous !**/
+
+
 let hours = document.getElementById('hours');
 let minutes = document.getElementById('minutes');
 let seconds = document.getElementById('seconds');
@@ -42,13 +87,16 @@ let startStop = document.getElementById('startStop');
 let currentTime;
 let alarmElement;
 let activeAlarm = false;
-let sound = new Audio("./audio/alarme.mp3");
+
+//Son de l'alarme
+let sound = new Audio("./audio/alarmeBox.mp3");
 sound.loop = true;
 
 //Fonction qui joue le son de l'alarme si l'heure enregistré et la même que celle du poste client
 function showTime(){
     var now = new Date();
     currentTime = now.toLocaleTimeString();
+
     if(currentTime === alarmElement){
         sound.play();
     }
@@ -77,6 +125,7 @@ function addHour(id){
     }
 }
 
+//appel des fonctions
 addHour(hours);
 addMinSec(minutes);
 addMinSec(seconds);
