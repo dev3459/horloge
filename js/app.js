@@ -33,11 +33,8 @@ function aiguilles(){
 
 //Fonction qui fait retentir un coup de cloche à chaque fois que les minutes sont égales à 30
 function clockDemiHourCloche(){
-    if(min === 30 && !activeCloche){
+    if(min === 30 && sec === 0){
         new Audio("./audio/demiHeure.mp3").play();
-        activeCloche = true;
-    }else if(min === 31 && activeCloche){
-        activeCloche = false;
     }
 }
 
@@ -45,7 +42,7 @@ function clockDemiHourCloche(){
 function clockHourCloche(){
     if(!activeCloche){
         let soundCloche = new Audio("./audio/clocheCentre.mp3")
-            if(countCoup !== hr){
+            if(countCoup !== hr && min === 0){
                 soundCloche.play();
                 countCoup++;
             }else{
@@ -53,12 +50,10 @@ function clockHourCloche(){
                 ancienHr = hr;
                 activeCloche = true;
             }
-            console.log(countCoup);
     }else if(hr !== ancienHr){
         ancienHr = hr;
         activeCloche = false;
         countCoup = 0;
-        console.log("test");
     }
 }
 
